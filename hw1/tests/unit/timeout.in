@@ -1,0 +1,89 @@
+# First invalid args
+timeout
+timeout 4
+timeout -4 showpid
+#Check command finished before alarm
+timeout 3 ls
+!time.sleep(2)
+echo before
+!time.sleep(2)
+# Got alarm should be print now, after 2 jobs
+echo after
+# Now check with &
+#Check command finished before alarm
+timeout 3 ./my_sleep 2
+!time.sleep(4)
+# Got alarm should be print now, after done
+echo after
+# Now we let the alarm to kill
+timeout 3 ./my_sleep 4
+!time.sleep(4)
+# Make sure we didnt kill anyone
+CtrlC
+jobs
+# Now with &
+timeout 3 ./my_sleep 4 &
+jobs
+!time.sleep(4)
+# Should be empty
+# Make sure we didnt kill anyone
+CtrlC
+jobs
+# Now kill in middle of action
+timeout 6 ./my_sleep 4
+!time.sleep(3)
+CtrlC
+echo before
+!time.sleep(4)
+# Now should print got alarm
+echo after
+jobs
+timeout 5 ./my_sleep 10 &
+!time.sleep(1)
+timeout 9 ./my_sleep 20
+!time.sleep(10)
+timeout 7 ./my_sleep 10&
+!time.sleep(1)
+timeout 3 ./my_sleep 20&
+!time.sleep(7)
+CtrlC
+timeout 3 ./my_sleep 20&
+bg
+CtrlZ
+bg
+!time.sleep(4)
+jobs
+timeout 3 ./my_sleep 20&
+fg
+CtrlZ
+bg
+!time.sleep(4)
+jobs
+timeout 3 ./my_sleep 20&
+fg
+CtrlC
+jobs
+!time.sleep(4)
+timeout 5 sleep 100&
+timeout 10 sleep 200&
+timeout 2 sleep 300&
+timeout 7 sleep 400&
+jobs
+!time.sleep(11)
+jobs
+#
+# Get alarm during other command
+#
+timeout 2 sleep 4&
+sleep 10
+!time.sleep(3)
+# The alarm should kill the sleep4& 
+# Kill sleep 10
+CtrlC
+# Now we check in case the command died before alarm and during other command (Checking that you clean jobs list in alarm handler as well)
+timeout 3 sleep 1&
+sleep 10
+!time.sleep(5)
+# Should kill the sleep4& 
+CtrlC
+quit kill

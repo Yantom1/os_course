@@ -1,0 +1,43 @@
+ls | bash -c "head -c 24"
+echo dont look at me | echo look here
+# We still should see the stderr output
+not_real_command | sleep 1
+!time.sleep(3)
+sleep 1 | sleep 3
+!time.sleep(3)
+#Verify both sleeps have died
+ps | grep sleep
+ls | sleep 1
+!time.sleep(1)
+sleep 1 | ls
+!time.sleep(1)
+./my_sleep 3 | grep --line-buffered --color=never ".*"
+!time.sleep(3)
+# Check internal commands redirection
+showpid | grep smash
+showpid | showpid
+pwd | grep /
+sleep 20&
+sleep 10&
+jobs | grep sleep
+kill -9 1 | grep sent
+kill -9 2 | grep sent
+jobs | grep sleep
+sleep 10 &
+sleep 1 | kill -9 1
+!time.sleep(1)
+jobs
+#
+# stderr
+#
+# verify that we transfer the stderr by truncateing it
+cat not_a_realy_path |& tail -c 12
+cd not_a_realy_path |& tail -c 12
+cd - |& tail -c 12
+cd asdasd asdasd |& tail -c 12
+kill -9 30 |& tail -c 12
+kill |& tail -c 12
+kill asda 1|& tail -c 12
+not_real_command|& tail -c 12
+jobs
+quit kill

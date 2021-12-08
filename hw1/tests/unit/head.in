@@ -1,0 +1,19 @@
+#Invalid args
+head
+head not_exists
+head -5 not_exists
+#Normal checks
+echo -e "hello1\nhello2\nhello3\nhello4\nhello5\nhello6\nhello7\nhello8\nhello9\nhello10\nhello11" > tmp
+head -1 tmp
+head -2 tmp
+head -3 tmp
+head -20 tmp
+#Check default behavior (N=10)
+head tmp
+#Check behavior with redirection
+head -20 tmp | grep 1
+#Check correct behavior if no newline at end of file
+echo -e -n "hello1\nhello2\nhello3" > tmp
+head -3 tmp
+head -4 tmp
+quit

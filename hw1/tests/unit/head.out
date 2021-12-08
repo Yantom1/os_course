@@ -1,0 +1,38 @@
+smash> smash error: head: not enough arguments
+smash> smash error: open failed: No such file or directory
+smash> smash error: open failed: No such file or directory
+smash> smash> hello1
+smash> hello1
+hello2
+smash> hello1
+hello2
+hello3
+smash> hello1
+hello2
+hello3
+hello4
+hello5
+hello6
+hello7
+hello8
+hello9
+hello10
+hello11
+smash> hello1
+hello2
+hello3
+hello4
+hello5
+hello6
+hello7
+hello8
+hello9
+hello10
+smash> hello1
+hello10
+hello11
+smash> smash> hello1
+hello2
+hello3smash> hello1
+hello2
+hello3smash> 
